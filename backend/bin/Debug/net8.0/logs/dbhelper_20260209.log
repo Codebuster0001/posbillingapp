@@ -1,0 +1,78 @@
+2026-02-09T15:53:38.8581149Z GetDataTableWithParams Exception: Cannot add or update a child row: a foreign key constraint fails (`pos_db2`.`orders`, CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`)) :::    at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 36
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 38
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 38
+2026-02-09T16:00:21.4165037Z GetDataTableWithParams Exception: Cannot add or update a child row: a foreign key constraint fails (`pos_db2`.`orders`, CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`)) :::    at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 36
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 38
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 38
+2026-02-09T16:00:58.7014586Z GetDataTableWithParams Exception: Cannot add or update a child row: a foreign key constraint fails (`pos_db2`.`orders`, CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`)) :::    at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 36
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 38
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 38
+2026-02-09T16:06:31.4067301Z GetDataTableWithParams Exception: Cannot add or update a child row: a foreign key constraint fails (`pos_db2`.`orders`, CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`)) :::    at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 36
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 38
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 38
+2026-02-09T16:06:44.3396454Z GetDataTableWithParams Exception: Cannot add or update a child row: a foreign key constraint fails (`pos_db2`.`orders`, CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`)) :::    at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 36
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 38
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 38
+2026-02-09T16:12:10.4179177Z GetDataTableWithParams Exception: Column 'UserId' cannot be null :::    at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.GetResultAsync(Int32 affectedRow, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.GetResultAsync(Int32 statementId, Int32 affectedRows, Int64 insertedId, Boolean execAsync)
+   at MySql.Data.MySqlClient.Driver.NextResultAsync(Int32 statementId, Boolean force, Boolean execAsync)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResultAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 36
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 38
+   at posbillingapp.api.Data.DbHelper.GetDataTableWithParams(String query, String[] parameters) in C:\Users\HP\.gemini\antigravity\scratch\posbillingapp\backend\Data\DbHelper.cs:line 38

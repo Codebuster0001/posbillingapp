@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Premium Light UI Palette (Purple & Blue) -->
+    <color name="primary">#8B5CF6</color> <!-- Vibrant Purple -->
+    <color name="primary_dark">#7C3AED</color>
+    <color name="bg_light">#F8FAFC</color> <!-- Clean White/Blue Background -->
+    <color name="surface_light">#FFFFFF</color>
+    <color name="accent_blue">#3B82F6</color> <!-- Modern Blue -->
+    <color name="accent_purple">#A78BFA</color>
+    
+    <color name="text_primary">#1E293B</color> <!-- Deep Slate/Bule Text -->
+    <color name="text_secondary">#64748B</color>
+    <color name="error_red">#EF4444</color>
+    
+    <!-- Legacy/Standard -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent_purple">#1A8B5CF6</color>
+    <color name="transparent_blue">#1A3B82F6</color>
+</resources>

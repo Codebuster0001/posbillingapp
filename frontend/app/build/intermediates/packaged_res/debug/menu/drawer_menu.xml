@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/nav_billing"
+            android:title="New Billing" />
+    </group>
+
+    <!-- Employee Section (visible to all) -->
+    <item android:title="My Account">
+        <menu>
+            <item
+                android:id="@+id/nav_my_profile"
+                android:title="My Profile" />
+            <item
+                android:id="@+id/nav_my_orders"
+                android:title="My Orders" />
+        </menu>
+    </item>
+
+    <!-- Admin Section (admin only) -->
+    <item 
+        android:id="@+id/nav_admin_section"
+        android:title="Administration">
+        <menu>
+            <item
+                android:id="@+id/nav_manage_employees"
+                android:title="Manage Employees" />
+            <item
+                android:id="@+id/nav_manage_menu"
+                android:title="Manage Products" />
+            <item
+                android:id="@+id/nav_access_control"
+                android:title="Access Control" />
+            <item
+                android:id="@+id/nav_settings"
+                android:title="Settings" />
+        </menu>
+    </item>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:title="Logout" />
+        </menu>
+    </item>
+</menu>

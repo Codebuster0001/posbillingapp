@@ -1,0 +1,72 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.POSBilling" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/accent_blue</item>
+        <item name="colorSecondaryVariant">@color/accent_blue</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Background and window colors -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowBackground">@color/bg_light</item>
+    </style>
+
+    <!-- Modern Card Style -->
+    <style name="PremiumCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/surface_light</item>
+        <item name="cardCornerRadius">24dp</item>
+        <item name="cardElevation">8dp</item>
+        <item name="strokeColor">#E2E8F0</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <!-- Calculator Button Base Style (New Theme) -->
+    <style name="CalculatorButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">20dp</item>
+        <item name="android:elevation">2dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="rippleColor">@color/transparent_purple</item>
+    </style>
+
+    <style name="CalculatorButton.Numeric" parent="CalculatorButton">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="strokeColor">@color/primary</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="CalculatorButton.Action" parent="CalculatorButton">
+        <item name="backgroundTint">@color/transparent_blue</item>
+        <item name="android:textColor">@color/accent_blue</item>
+    </style>
+
+    <style name="CalculatorButton.Clear" parent="CalculatorButton">
+        <item name="backgroundTint">#FEF2F2</item> <!-- Light Red -->
+        <item name="android:textColor">@color/error_red</item>
+    </style>
+
+    <style name="CalculatorButton.Submit" parent="CalculatorButton">
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:elevation">6dp</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="CalculatorDisplayCard" parent="PremiumCard">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardElevation">12dp</item>
+        <item name="strokeColor">@color/primary</item>
+    </style>
+
+</resources>
