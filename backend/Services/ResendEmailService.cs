@@ -1,6 +1,4 @@
-using System.Text.Json;
-using System.Text;
-using System.Net.Http.Headers;
+using Resend;
 
 namespace posbillingapp.api.Services
 {
@@ -8,13 +6,11 @@ namespace posbillingapp.api.Services
     {
         private readonly IConfiguration _config;
         private readonly ILogger<ResendEmailService> _logger;
-        private readonly HttpClient _httpClient;
 
         public ResendEmailService(IConfiguration config, ILogger<ResendEmailService> logger)
         {
             _config = config;
             _logger = logger;
-            _httpClient = new HttpClient();
         }
 
         public async Task<bool> SendOtpEmail(string toEmail, string otp)
@@ -41,56 +37,45 @@ namespace posbillingapp.api.Services
             try
             {
                 var apiKey = _config["Resend:ApiKey"];
-                var senderEmail = _config["EmailSettings:SenderEmail"] ?? "onboarding@resend.dev";
-                
-                // Resend Free Tier Requirement: 
-                // You MUST use onboarding@resend.dev until you verify a custom domain.
-                // If the user has a @gmail.com etc set, Resend will block it.
-                if (senderEmail.Contains("@gmail.com") || senderEmail.Contains("@yahoo.com") || senderEmail.Contains("@outlook.com"))
-                {
-                    _logger.LogInformation("Gmail/Public sender detected. Swapping to 'onboarding@resend.dev' for Resend compatibility.");
-                    senderEmail = "onboarding@resend.dev";
-                }
-
-                var senderName = _config["EmailSettings:SenderName"] ?? "POS Billing App";
-
                 if (string.IsNullOrEmpty(apiKey))
                 {
                     _logger.LogWarning("Resend API Key not configured. Email not sent.");
                     return false;
                 }
 
-                _logger.LogInformation("Attempting to send email via Resend API to {Email}", toEmail);
-
-                var payload = new
+                var senderEmail = _config["EmailSettings:SenderEmail"] ?? "onboarding@resend.dev";
+                
+                // Resend Free Tier Requirement: 
+                // You MUST use onboarding@resend.dev until you verify a custom domain.
+                if (senderEmail.Contains("@gmail.com") || senderEmail.Contains("@yahoo.com") || senderEmail.Contains("@outlook.com"))
                 {
-                    from = $"{senderName} <{senderEmail}>",
-                    to = new[] { toEmail },
-                    subject = subject,
-                    html = htmlBody
+                    _logger.LogInformation("Public sender detected. Swapping to 'onboarding@resend.dev' for Resend compatibility.");
+                    senderEmail = "onboarding@resend.dev";
+                }
+
+                var senderName = _config["EmailSettings:SenderName"] ?? "POS Billing App";
+
+                _logger.LogInformation("Attempting to send email via Resend Library to {Email}", toEmail);
+
+                // Use the Resend Library as requested
+                IResend resend = ResendClient.Create(apiKey);
+
+                var message = new EmailMessage()
+                {
+                    From = $"{senderName} <{senderEmail}>",
+                    To = toEmail,
+                    Subject = subject,
+                    HtmlBody = htmlBody,
                 };
 
-                var request = new HttpRequestMessage(HttpMethod.Post, "https://api.resend.com/emails");
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
-                request.Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-
-                var response = await _httpClient.SendAsync(request);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    _logger.LogInformation("Email sent successfully via Resend to {Email}", toEmail);
-                    return true;
-                }
-                else
-                {
-                    var error = await response.Content.ReadAsStringAsync();
-                    _logger.LogError("Failed to send email via Resend. Status: {Status}, Error: {Error}", response.StatusCode, error);
-                    return false;
-                }
+                await resend.EmailSendAsync(message);
+                
+                _logger.LogInformation("Email sent successfully via Resend Library to {Email}", toEmail);
+                return true;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Exception while sending email via Resend to {Email}", toEmail);
+                _logger.LogError(ex, "Exception while sending email via Resend Library to {Email}", toEmail);
                 return false;
             }
         }
