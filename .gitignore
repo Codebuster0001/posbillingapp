@@ -3,12 +3,24 @@
 [Oo]bj/
 [Ll]og/
 *.log
+backend/appsettings.json
+backend/appsettings.Development.json
+.vs/
+.vscode/
 
 # React (websiteFrontend)
 websiteFrontend/node_modules/
 websiteFrontend/dist/
 websiteFrontend/build/
 websiteFrontend/.env
+
+# Android (frontend)
+frontend/.gradle/
+frontend/.idea/
+frontend/build/
+frontend/local.properties
+frontend/app/build/
+*.iml
 
 # Temporary Build/Error Files
 backend/build_errors.txt
