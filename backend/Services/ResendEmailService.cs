@@ -42,6 +42,16 @@ namespace posbillingapp.api.Services
             {
                 var apiKey = _config["Resend:ApiKey"];
                 var senderEmail = _config["EmailSettings:SenderEmail"] ?? "onboarding@resend.dev";
+                
+                // Resend Free Tier Requirement: 
+                // You MUST use onboarding@resend.dev until you verify a custom domain.
+                // If the user has a @gmail.com etc set, Resend will block it.
+                if (senderEmail.Contains("@gmail.com") || senderEmail.Contains("@yahoo.com") || senderEmail.Contains("@outlook.com"))
+                {
+                    _logger.LogInformation("Gmail/Public sender detected. Swapping to 'onboarding@resend.dev' for Resend compatibility.");
+                    senderEmail = "onboarding@resend.dev";
+                }
+
                 var senderName = _config["EmailSettings:SenderName"] ?? "POS Billing App";
 
                 if (string.IsNullOrEmpty(apiKey))
