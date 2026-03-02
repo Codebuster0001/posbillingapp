@@ -1,4 +1,35 @@
-/EMPLOYEE_MENU_ACCESS_SYSTEM.md
-/fix_connection.ps1
-/MENU_ASSIGNMENT_USER_GUIDE.md
-/setup_db.ps1
+# .NET
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+*.log
+
+# React (websiteFrontend)
+websiteFrontend/node_modules/
+websiteFrontend/dist/
+websiteFrontend/build/
+websiteFrontend/.env
+
+# Temporary Build/Error Files
+backend/build_errors.txt
+backend/build_errors_2.txt
+backend/build_errors_3.txt
+backend/build_log.txt
+backend/build_out.txt
+backend/build_output.txt
+
+# Scripts and Testing
+backend/backend.http
+backend/pbac_setup.sql
+backend/schema.sql
+backend/test_apis.ps1
+fix_connection.ps1
+setup_db.ps1
+
+# Documentation (already ignored but keeping them clean)
+EMPLOYEE_MENU_ACCESS_SYSTEM.md
+MENU_ASSIGNMENT_USER_GUIDE.md
+
+# OS Files
+.DS_Store
+Thumbs.db
