@@ -14,7 +14,7 @@ builder.Services.AddCors(options => {
 builder.Services.AddScoped<posbillingapp.api.Data.DbConnectionFactory>();
 builder.Services.AddScoped<posbillingapp.api.Data.DbHelper>();
 builder.Services.AddScoped<posbillingapp.api.Services.IPasswordService, posbillingapp.api.Services.PasswordService>();
-builder.Services.AddScoped<posbillingapp.api.Services.IEmailService, posbillingapp.api.Services.EmailService>();
+builder.Services.AddScoped<posbillingapp.api.Services.IEmailService, posbillingapp.api.Services.ResendEmailService>();
 builder.Services.AddScoped<posbillingapp.api.Services.IJwtService, posbillingapp.api.Services.JwtService>();
 builder.Services.AddScoped<posbillingapp.api.Services.IPermissionService, posbillingapp.api.Services.PermissionService>();
 builder.Services.AddScoped<posbillingapp.api.Services.IBankValidationService, posbillingapp.api.Services.BankValidationService>();
