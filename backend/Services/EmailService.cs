@@ -70,24 +70,29 @@ namespace posbillingapp.api.Services
                 email.Body = bodyBuilder.ToMessageBody();
 
                 using var client = new SmtpClient();
+                client.Timeout = 15000; // 15 seconds timeout
                 
                 // For Railway/Cloud, Port 465 with Implicit SSL is usually best.
-                // We use SslOnConnect for Port 465.
                 var socketOptions = smtpPort == 465 ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.StartTls;
 
-                _logger.LogInformation($"Connecting to {smtpHost}:{smtpPort} using {socketOptions}...");
-
+                _logger.LogInformation($"Stepping 1: Connecting to {smtpHost}:{smtpPort}...");
                 await client.ConnectAsync(smtpHost, smtpPort, socketOptions);
+                
+                _logger.LogInformation($"Stepping 2: Authenticating as {senderEmail}...");
                 await client.AuthenticateAsync(senderEmail, senderPassword);
+                
+                _logger.LogInformation($"Stepping 3: Sending email contents...");
                 await client.SendAsync(email);
+                
+                _logger.LogInformation($"Stepping 4: Disconnecting...");
                 await client.DisconnectAsync(true);
 
-                _logger.LogInformation($"Email sent successfully to {toEmail} via Gmail SMTP.");
+                _logger.LogInformation($"SUCCESS: OTP email sent to {toEmail}!");
                 return true;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Failed to send email to {toEmail} via Gmail SMTP.");
+                _logger.LogError(ex, $"CRITICAL: Gmail SMTP Failed for {toEmail}. Error: {ex.Message}");
                 return false;
             }
         }
