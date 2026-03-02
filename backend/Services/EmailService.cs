@@ -5,6 +5,12 @@ using System.Net;
 
 namespace posbillingapp.api.Services
 {
+    public interface IEmailService
+    {
+        Task<bool> SendOtpEmail(string toEmail, string otp);
+        Task<bool> SendEmailAsync(string toEmail, string subject, string htmlBody);
+    }
+
     public class EmailService : IEmailService
     {
         private readonly IConfiguration _config;
