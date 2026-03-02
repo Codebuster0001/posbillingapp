@@ -34,9 +34,9 @@ export default function ForgotPassword() {
         try {
             const res = await forgotPassword(email);
             setStep(2);
-            // Use message from API (it might contain the OTP if email fails)
+            // Use message from API. Support DebugOtp fallback for testing.
             let msg = res.message || "OTP sent successfully!";
-            if (res.token) msg += ` Code: ${res.token}`;
+            if (res.debugOtp) msg += ` [DEBUG MODE] Your code is: ${res.debugOtp}`;
             setSuccess(msg);
         } catch (err) {
             setError(err.message || "Failed to send OTP. Please try again.");

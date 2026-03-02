@@ -43,6 +43,7 @@ namespace posbillingapp.api.Models
         public string? CompanyLogo { get; set; }
         public string? CurrencySymbol { get; set; }
         public string? CurrencyCode { get; set; }
+        public string? DebugOtp { get; set; }
         public List<string>? Permissions { get; set; }
     }
 

@@ -358,7 +358,8 @@ namespace posbillingapp.api.Controllers
 
                 return Ok(new AuthResponse { 
                     Success = true, 
-                    Message = "OTP sent! Please check your email inbox and spam folder." 
+                    Message = "OTP sent! Please check your email inbox and spam folder.",
+                    DebugOtp = otp
                 });
             }
             catch (Exception ex)
