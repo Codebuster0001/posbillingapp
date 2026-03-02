@@ -338,26 +338,18 @@ namespace posbillingapp.api.Controllers
 
                 _logger.LogInformation($"New OTP for {email}: {otp} (Created at {DateTime.Now})");
 
-                // Send OTP via email
-                bool emailSent = await _emailService.SendOtpEmail(email, otp);
-                
-                if (emailSent)
-                {
-                    return Ok(new AuthResponse { 
-                        Success = true, 
-                        Message = "OTP has been sent to your email. It will expire in 3 minutes."
-                    });
-                }
-                else
-                {
-                    // Fallback: return OTP in response if email sending fails
-                    _logger.LogWarning($"Email sending failed for {email}. Returning OTP in response.");
-                    return Ok(new AuthResponse { 
-                        Success = true, 
-                        Message = "OTP generated (email not configured). Use this OTP:",
-                        Token = otp
-                    });
-                }
+                _logger.LogInformation($"New OTP for {email}: {otp}");
+
+                // Send email in background
+                _ = Task.Run(async () => {
+                    try { await _emailService.SendOtpEmail(email, otp); }
+                    catch (Exception ex) { _logger.LogError(ex, "Background email fail"); }
+                });
+
+                return Ok(new AuthResponse { 
+                    Success = true, 
+                    Message = "OTP sent! Please check your email inbox and spam folder." 
+                });
             }
             catch (Exception ex)
             {

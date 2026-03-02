@@ -57,7 +57,7 @@ namespace posbillingapp.api.Services
                 using var client = new SmtpClient(smtpHost, smtpPort);
                 client.EnableSsl = true;
                 client.Credentials = new NetworkCredential(senderEmail, senderPassword);
-                client.Timeout = 10000; // 10 seconds timeout
+                client.Timeout = 5000; // 5 seconds timeout
 
                 await client.SendMailAsync(message);
                 _logger.LogInformation($"OTP email sent successfully to {toEmail}");
