@@ -72,8 +72,12 @@ namespace posbillingapp.api.Services
                 using var client = new SmtpClient();
                 client.Timeout = 15000; // 15 seconds timeout
                 
-                // For Railway/Cloud, Port 465 with Implicit SSL is usually best.
-                var socketOptions = smtpPort == 465 ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.StartTls;
+                // For Railway/Cloud:
+                // Port 465 -> SslOnConnect (Implicit SSL)
+                // Port 587 -> StartTls (Explicit SSL)
+                var socketOptions = SecureSocketOptions.Auto;
+                if (smtpPort == 465) socketOptions = SecureSocketOptions.SslOnConnect;
+                else if (smtpPort == 587) socketOptions = SecureSocketOptions.StartTls;
 
                 _logger.LogInformation($"Stepping 1: Connecting to {smtpHost}:{smtpPort}...");
                 await client.ConnectAsync(smtpHost, smtpPort, socketOptions);
