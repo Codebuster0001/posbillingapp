@@ -25,6 +25,7 @@ export default function ForgotPassword() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [debugOtp, setDebugOtp] = useState("");
     const navigate = useNavigate();
 
     const handleSendOtp = async (e) => {
@@ -34,10 +35,11 @@ export default function ForgotPassword() {
         try {
             const res = await forgotPassword(email);
             setStep(2);
-            // Use message from API. Support DebugOtp fallback for testing.
-            let msg = res.message || "OTP sent successfully!";
-            if (res.debugOtp) msg += ` [DEBUG MODE] Your code is: ${res.debugOtp}`;
-            setSuccess(msg);
+            setSuccess(res.message || "OTP sent successfully!");
+            if (res.debugOtp) {
+                setDebugOtp(res.debugOtp);
+                console.log("DEBUG: Your OTP is", res.debugOtp);
+            }
         } catch (err) {
             setError(err.message || "Failed to send OTP. Please try again.");
         } finally {
@@ -94,6 +96,15 @@ export default function ForgotPassword() {
                         <Alert className="mb-4 bg-green-50 border-green-200 text-green-700">
                             <AlertDescription>{success}</AlertDescription>
                         </Alert>
+                    )}
+                    {debugOtp && step === 2 && (
+                        <div className="mb-6 p-4 bg-amber-50 border-2 border-dashed border-amber-300 rounded-lg text-center animate-pulse">
+                            <p className="text-sm font-bold text-amber-800 uppercase mb-1">Testing Mode: OTP Fallback</p>
+                            <p className="text-xs text-amber-600 mb-2">(Your server's email service is being blocked by Railway)</p>
+                            <div className="text-3xl font-black tracking-[0.5em] text-amber-900 bg-white inline-block px-4 py-1 rounded shadow-sm">
+                                {debugOtp}
+                            </div>
+                        </div>
                     )}
 
                     {step === 1 && (
