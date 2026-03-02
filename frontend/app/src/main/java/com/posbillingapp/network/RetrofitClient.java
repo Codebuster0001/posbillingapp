@@ -23,8 +23,7 @@ public class RetrofitClient {
     }
 
     public static String getBaseUrl() {
-        String ip = sessionManager != null ? sessionManager.getServerIp() : "192.168.0.102";
-        return "http://" + ip + ":5000/";
+        return "https://posbillingapp-production.up.railway.app/";
     }
 
     public static ApiService getApiService() {
@@ -51,8 +50,7 @@ public class RetrofitClient {
                     })
                     .build();
 
-            String ip = sessionManager != null ? sessionManager.getServerIp() : "192.168.0.102";
-            String baseUrl = "http://" + ip + ":5000/";
+            String baseUrl = getBaseUrl();
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
