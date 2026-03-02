@@ -18,8 +18,9 @@ namespace posbillingapp.api.Controllers
         private readonly ITokenBlacklistService _blacklistService;
         private readonly IPermissionService _permissionService;
         private readonly ILogger<AuthController> _logger;
+        private readonly IServiceScopeFactory _scopeFactory;
 
-        public AuthController(DbHelper dbHelper, IPasswordService passwordService, IEmailService emailService, IJwtService jwtService, ITokenBlacklistService blacklistService, IPermissionService permissionService, ILogger<AuthController> logger)
+        public AuthController(DbHelper dbHelper, IPasswordService passwordService, IEmailService emailService, IJwtService jwtService, ITokenBlacklistService blacklistService, IPermissionService permissionService, ILogger<AuthController> logger, IServiceScopeFactory scopeFactory)
         {
             _dbHelper = dbHelper;
             _passwordService = passwordService;
@@ -28,6 +29,7 @@ namespace posbillingapp.api.Controllers
             _blacklistService = blacklistService;
             _permissionService = permissionService;
             _logger = logger;
+            _scopeFactory = scopeFactory;
         }
 
         [Authorize]
@@ -340,10 +342,18 @@ namespace posbillingapp.api.Controllers
 
                 _logger.LogInformation($"New OTP for {email}: {otp}");
 
-                // Send email in background
+                // Send email in background using a new scope to avoid ObjectDisposedException
                 _ = Task.Run(async () => {
-                    try { await _emailService.SendOtpEmail(email, otp); }
-                    catch (Exception ex) { _logger.LogError(ex, "Background email fail"); }
+                    try 
+                    {
+                        using var scope = _scopeFactory.CreateScope();
+                        var emailService = scope.ServiceProvider.GetRequiredService<IEmailService>();
+                        await emailService.SendOtpEmail(email, otp); 
+                    }
+                    catch (Exception ex) 
+                    { 
+                        _logger.LogError(ex, "Background email fail"); 
+                    }
                 });
 
                 return Ok(new AuthResponse { 
