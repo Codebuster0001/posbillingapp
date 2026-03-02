@@ -54,10 +54,14 @@ namespace posbillingapp.api.Services
                         <p style='color: #bbb; font-size: 11px; text-align: center;'>POS Billing App</p>
                     </div>";
 
+                _logger.LogInformation($"Attempting to send email via {smtpHost}:{smtpPort} for {toEmail}");
+
                 using var client = new SmtpClient(smtpHost, smtpPort);
                 client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
                 client.Credentials = new NetworkCredential(senderEmail, senderPassword);
-                client.Timeout = 5000; // 5 seconds timeout
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.Timeout = 15000; // 15 seconds timeout for cloud network
 
                 await client.SendMailAsync(message);
                 _logger.LogInformation($"OTP email sent successfully to {toEmail}");
@@ -96,7 +100,7 @@ namespace posbillingapp.api.Services
                 using var client = new SmtpClient(smtpHost, smtpPort);
                 client.EnableSsl = true;
                 client.Credentials = new NetworkCredential(senderEmail, senderPassword);
-                client.Timeout = 10000;
+                client.Timeout = 15000;
 
                 await client.SendMailAsync(message);
                 _logger.LogInformation("Email '{Subject}' sent to {Email}", subject, toEmail);
