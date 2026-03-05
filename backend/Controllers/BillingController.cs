@@ -214,21 +214,56 @@ namespace posbillingapp.api.Controllers
                 DataTable? dt = await _dbHelper.GetDataTableWithParams(sql, parameters.ToArray());
                 
                 var orders = new List<OrderResponse>();
-                if (dt != null)
+                if (dt != null && dt.Rows.Count > 0)
                 {
+                    // Fetch all relevant order items in one go for efficiency
+                    var orderIds = new List<long>();
                     foreach (DataRow row in dt.Rows)
                     {
-                        orders.Add(new OrderResponse
+                        orderIds.Add(Convert.ToInt64(row["Id"]));
+                    }
+
+                    string itemSql = $"SELECT * FROM orderitems WHERE OrderId IN ({string.Join(",", orderIds)});";
+                    DataTable? itemsDt = await _dbHelper.GetDataTable(itemSql);
+
+                    // Group items by OrderId
+                    var itemsByOrderId = new Dictionary<long, List<OrderItemResponse>>();
+                    if (itemsDt != null)
+                    {
+                        foreach (DataRow itemRow in itemsDt.Rows)
                         {
-                            Id = Convert.ToInt64(row["Id"]),
+                            long orderId = Convert.ToInt64(itemRow["OrderId"]);
+                            if (!itemsByOrderId.ContainsKey(orderId)) 
+                            {
+                                itemsByOrderId[orderId] = new List<OrderItemResponse>();
+                            }
+                            itemsByOrderId[orderId].Add(new OrderItemResponse
+                            {
+                                Id = Convert.ToInt64(itemRow["Id"]),
+                                OrderId = orderId,
+                                ItemName = itemRow["ItemName"]?.ToString() ?? "",
+                                Price = Convert.ToDecimal(itemRow["Price"]),
+                                Quantity = Convert.ToInt32(itemRow["Quantity"])
+                            });
+                        }
+                    }
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        long orderId = Convert.ToInt64(row["Id"]);
+                        var order = new OrderResponse
+                        {
+                            Id = orderId,
                             CompanyId = Convert.ToInt64(row["CompanyId"]),
                             UserId = row["UserId"] != DBNull.Value ? Convert.ToInt64(row["UserId"]) : null,
                             UserName = row["UserName"] != DBNull.Value ? row["UserName"].ToString()! : "Admin",
                             UserRole = row["RoleName"] != DBNull.Value ? row["RoleName"].ToString()! : "Administrator",
                             BillNumber = row["BillNumber"]?.ToString() ?? "",
                             TotalAmount = Convert.ToDecimal(row["TotalAmount"]),
-                            CreatedAt = row["CreatedAt"] != DBNull.Value ? Convert.ToDateTime(row["CreatedAt"]) : DateTime.MinValue
-                        });
+                            CreatedAt = row["CreatedAt"] != DBNull.Value ? Convert.ToDateTime(row["CreatedAt"]) : DateTime.MinValue,
+                            Items = itemsByOrderId.ContainsKey(orderId) ? itemsByOrderId[orderId] : new List<OrderItemResponse>()
+                        };
+                        orders.Add(order);
                     }
                 }
                 return Ok(orders);

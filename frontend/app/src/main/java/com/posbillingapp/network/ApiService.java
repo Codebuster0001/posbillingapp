@@ -140,4 +140,8 @@ public interface ApiService {
 
     @DELETE("api/Settings/card/{cardId}")
     Call<Void> deleteCard(@Path("cardId") long cardId);
+
+    // Billing History
+    @GET("api/billing/history/{companyId}")
+    Call<List<com.posbillingapp.models.BillingModels.OrderHistoryResponse>> getOrderHistory(@Path("companyId") long companyId);
 }

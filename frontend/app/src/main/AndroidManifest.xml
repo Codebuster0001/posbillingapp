@@ -40,6 +40,10 @@
         <activity android:name=".ui.AccessControlActivity" />
         <activity android:name=".ui.SettlementActivity" />
         
+        <activity
+            android:name=".ui.ReceiptListActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

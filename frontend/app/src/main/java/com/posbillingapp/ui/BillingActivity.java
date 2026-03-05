@@ -158,6 +158,9 @@ public class BillingActivity extends AppCompatActivity {
 
     private void setupProductList(RecyclerView rv, View fullView) {
         TextView tvTotal = fullView.findViewById(R.id.tvTotalAmount);
+        if (tvTotal != null) {
+            tvTotal.setText("Total: " + com.posbillingapp.utils.CurrencyUtils.format(0.0));
+        }
         
         productAdapter = new BillingProductAdapter(new ArrayList<>(), (product, quantity) -> {
             updateCartTotal(fullView, activeProducts, productAdapter.getCartItems());

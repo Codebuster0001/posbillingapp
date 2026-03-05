@@ -90,7 +90,7 @@ public class PermissionActivity extends AppCompatActivity {
         if (binding.webView.canGoBack()) {
             binding.webView.goBack();
         } else {
-            super.onBackPressed();
+            getOnBackPressedDispatcher().onBackPressed();
         }
     }
 }

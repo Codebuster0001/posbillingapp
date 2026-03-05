@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         // Check for existing session
         if (sessionManager.isLoggedIn()) {
             // Initialize formatter on auto-login
-            com.posbillingapp.utils.CurrencyUtils.setCurrencySymbol(sessionManager.getCurrencySymbol());
+            com.posbillingapp.utils.CurrencyUtils.setCurrency(sessionManager.getCurrencySymbol(), sessionManager.getCurrencyCode());
             goToDashboard(sessionManager.getUserRole(), sessionManager.getCompanyId());
             return;
         }
@@ -88,14 +88,14 @@ public class LoginActivity extends AppCompatActivity {
                     if (authResponse.success) {
                         Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                         
-                        // Determine Currency Symbol (Symbol > Code > Default)
-                        String effectiveSymbol = authResponse.currencySymbol;
-                        if (effectiveSymbol == null || effectiveSymbol.trim().isEmpty()) {
-                            effectiveSymbol = authResponse.currencyCode;
-                        }
-                        if (effectiveSymbol == null || effectiveSymbol.trim().isEmpty()) {
-                            effectiveSymbol = ""; // No symbol if both are missing
-                        }
+                        // Currency Priority: Symbol (₹, $) first, Code (INR, USD) as fallback
+                        String currencySymbol = authResponse.currencySymbol;
+                        String currencyCode = authResponse.currencyCode;
+                        
+                        // Use the new priority-based setter
+                        com.posbillingapp.utils.CurrencyUtils.setCurrency(currencySymbol, currencyCode);
+                        // Store the resolved symbol for session persistence
+                        String resolvedSymbol = com.posbillingapp.utils.CurrencyUtils.getCurrencySymbol();
 
                         // Save session
                         sessionManager.createLoginSession(
@@ -104,15 +104,12 @@ public class LoginActivity extends AppCompatActivity {
                             authResponse.userId != null ? authResponse.userId : -1,
                             authResponse.companyName,
                             authResponse.companyLogo,
-                            effectiveSymbol, // Store chosen symbol as priority
-                            authResponse.currencyCode != null ? authResponse.currencyCode : "USD",
+                            resolvedSymbol,
+                            currencyCode != null ? currencyCode : "USD",
                             authResponse.token,
                             authResponse.refreshToken,
                             authResponse.permissions
                         );
-                        
-                        // Initialize formatter
-                        com.posbillingapp.utils.CurrencyUtils.setCurrencySymbol(effectiveSymbol);
 
                         goToDashboard(authResponse.role, authResponse.companyId != null ? authResponse.companyId : -1L);
                     } else {

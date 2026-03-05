@@ -339,7 +339,7 @@ public class CalculatorBillingActivity extends AppCompatActivity implements Navi
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            getOnBackPressedDispatcher().onBackPressed();
         }
     }
 

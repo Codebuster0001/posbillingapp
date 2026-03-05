@@ -69,6 +69,8 @@ public class AuthModels {
         public String message;
         @com.google.gson.annotations.SerializedName("token")
         public String token;
+        @com.google.gson.annotations.SerializedName("refreshToken")
+        public String refreshToken;
         @com.google.gson.annotations.SerializedName("role")
         public String role;
         @com.google.gson.annotations.SerializedName("companyId")

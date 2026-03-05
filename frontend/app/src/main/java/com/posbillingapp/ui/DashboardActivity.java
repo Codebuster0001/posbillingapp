@@ -39,7 +39,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         // Initialize Currency Symbol from Session
         com.posbillingapp.utils.SessionManager session = new com.posbillingapp.utils.SessionManager(this);
-        com.posbillingapp.utils.CurrencyUtils.setCurrencySymbol(session.getCurrencySymbol());
+        com.posbillingapp.utils.CurrencyUtils.setCurrency(session.getCurrencySymbol(), session.getCurrencyCode());
         
         syncPermissions();
 
@@ -180,6 +180,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         binding.btnCalculator.setVisibility(View.GONE);
         binding.btnAccessControl.setVisibility(isAdmin ? View.VISIBLE : View.GONE);
         binding.btnAccessControl.setOnClickListener(v -> openAccessControl());
+        
+        // Add click listeners to Dashboard Cards
+        if (binding.cardEmployees != null) {
+            binding.cardEmployees.setOnClickListener(v -> openEmployees());
+        }
+        if (binding.cardReceipts != null) {
+            binding.cardReceipts.setOnClickListener(v -> openMyOrders());
+        }
     }
 
     private void setupEmployeeDashboard(View view) {
@@ -195,6 +203,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             // TODO: Open Profile Edit Activity
             android.widget.Toast.makeText(this, "Profile editing coming soon!", android.widget.Toast.LENGTH_SHORT).show();
         });
+        
+        // Setup Receipts card click
+        View cardReceipts = view.findViewById(R.id.cardReceipts);
+        if (cardReceipts != null) {
+            cardReceipts.setOnClickListener(v -> openMyOrders());
+        }
         
         // Load employee stats and receipts
         fetchEmployeeStats(view);
@@ -282,8 +296,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void openMyOrders() {
-        // TODO: Create Order History Activity
-        Toast.makeText(this, "Order history coming soon!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ReceiptListActivity.class);
+        intent.putExtra("companyId", companyId);
+        startActivity(intent);
     }
 
     private void openSettings() {
@@ -307,7 +322,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            getOnBackPressedDispatcher().onBackPressed();
         }
     }
 }

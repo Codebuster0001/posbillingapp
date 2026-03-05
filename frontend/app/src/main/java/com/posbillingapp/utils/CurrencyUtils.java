@@ -7,9 +7,30 @@ public class CurrencyUtils {
     
     private static String currentSymbol = "$";
 
+    /**
+     * Sets the currency display prefix.
+     * Priority: use currencySymbol (e.g. ₹, $, €) if available,
+     * otherwise fall back to currencyCode (e.g. INR, USD, EUR).
+     * 
+     * @param symbol  The currency symbol (e.g. "₹")
+     * @param code    The currency code (e.g. "INR")
+     */
+    public static void setCurrency(String symbol, String code) {
+        if (symbol != null && !symbol.trim().isEmpty()) {
+            currentSymbol = symbol.trim();
+        } else if (code != null && !code.trim().isEmpty()) {
+            currentSymbol = code.trim();
+        }
+        // else keep previous value
+    }
+
+    /**
+     * Simple setter - kept for backward compatibility.
+     * Prefers the given value if non-empty.
+     */
     public static void setCurrencySymbol(String symbol) {
-        if (symbol != null) {
-            currentSymbol = symbol;
+        if (symbol != null && !symbol.trim().isEmpty()) {
+            currentSymbol = symbol.trim();
         }
     }
 
@@ -17,17 +38,25 @@ public class CurrencyUtils {
         return currentSymbol;
     }
 
-    // Method to format amount with the set currency symbol
+    /**
+     * Formats an amount with the currency prefix.
+     * If the prefix is a multi-character code (like "INR"), adds a space: "INR 1,234.56"
+     * If the prefix is a symbol (like "₹"), no space: "₹1,234.56"
+     */
     public static String format(double amount) {
         try {
-            // If using standard locale formatting, it might force the locale's symbol.
-            // We want to force OUR symbol but keep the locale's number formatting (commas, decimals).
             NumberFormat format = NumberFormat.getNumberInstance(Locale.getDefault());
             format.setMinimumFractionDigits(2);
             format.setMaximumFractionDigits(2);
-            return currentSymbol + format.format(amount);
+            String formattedNumber = format.format(amount);
+            
+            // If the symbol is all alphabetic (like a currency code), add a space
+            if (currentSymbol.length() > 1 && currentSymbol.matches("[A-Za-z]+")) {
+                return currentSymbol + " " + formattedNumber;
+            }
+            return currentSymbol + formattedNumber;
         } catch (Exception e) {
-            return String.format("%s%.2f", currentSymbol, amount); // Fallback
+            return String.format("%s%.2f", currentSymbol, amount);
         }
     }
 }

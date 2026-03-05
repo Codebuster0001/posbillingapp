@@ -41,7 +41,7 @@ public class MenuActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());
+            binding.toolbar.setNavigationOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
         }
 
         setupRecyclerView();
